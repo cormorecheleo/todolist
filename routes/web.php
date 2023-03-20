@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TodoListController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [TodoListController::class, 'index'])->name('todolist.index');
+
+Route::match(['GET', 'POST'], '/todos/create', ["uses" => "App\Http\Controllers\TodoListController@create"])->name('todolist.create');
+
