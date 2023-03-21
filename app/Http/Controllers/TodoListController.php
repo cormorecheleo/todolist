@@ -2,14 +2,23 @@
 
 namespace App\Http\Controllers;
 
+use App\Interfaces\TodoListRepositoryInterface;
 use Illuminate\Http\Request;
 use App\Models\TodoList;
 
 class TodoListController extends Controller
 {
+
+    private $todolistRepository;
+
+    public function __construct(TodoListRepositoryInterface $todolistRepository)
+    {
+        $this->todolistRepository = $todolistRepository;
+    }
+
     public function index(){
 
-        $todolists = TodoList::all();
+        $todolists = $this->todolistRepository->findAll();
         
         return view('todo.index', compact('todolists'));
     }
@@ -23,29 +32,16 @@ class TodoListController extends Controller
                 'name' => 'required'
             ]);
 
-            
+
 
             $todolist = new TodoList();
             $todolist->name = $params['name'];
-            $todolist->save();
+            $this->todolistRepository->save($todolist);
 
             return redirect()->route('todolist.index');
         }
     }
 
-    public function store(Request $request){
-        $params = $request->all();
-
-        $todolist = new TodoList();
-        $todolist->name = $params['name'];
-        $todolist->save();
-
-        if($todolist->id){
-            return view('todo.index', compact('todolist'));
-        }else{
-            return "Error create todo";
-        }
-    }
 
     public function edit($id){
         $todolist = TodoList::where('id', $id)->get();
