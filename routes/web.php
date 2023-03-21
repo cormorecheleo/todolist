@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TodoListController;
+use App\Http\Controllers\UpperCaseController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,3 +19,4 @@ Route::get('/', [TodoListController::class, 'index'])->name('todolist.index');
 
 Route::match(['GET', 'POST'], '/todos/create', ["uses" => "App\Http\Controllers\TodoListController@create"])->name('todolist.create');
 
+Route::get('/upper/{value}', [UpperCaseController::class, 'index'])->name('upper.indedx');
