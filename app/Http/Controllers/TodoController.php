@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\TodoCreatedEvent;
 use App\Models\Todo;
 use App\Interfaces\TodoRepositoryInterface;
 use App\Models\TodoList;
 use App\Services\TodoService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Event;
 
 class TodoController extends Controller
 {
@@ -52,6 +54,9 @@ class TodoController extends Controller
         $todo->todo_list_id = $params['id'];
 
         $this->todoService->save($todo);
+
+        //TodoCreatedEvent::dispatch();
+        event(new TodoCreatedEvent($todo));
 
         $redirect = "/todolist/".$params['id'];
         return redirect($redirect);
