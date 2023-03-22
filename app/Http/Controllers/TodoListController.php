@@ -20,12 +20,17 @@ class TodoListController extends Controller
 
         $todolists = $this->todolistRepository->findAll();
         
-        return view('todo.index', compact('todolists'));
+        return view('todolist.index', compact('todolists'));
+    }
+
+    public function show($id){
+        $todolist = TodoList::find($id);
+        return view('todolist.show',compact('todolist'));
     }
 
     public function create(Request $request){
         if($request->isMethod('get')){
-            return view('todo.create');
+            return view('todolist.create');
         }else if($request->isMethod('post')){
             $params = $request->all();
             $r = $request->validate([
@@ -46,7 +51,7 @@ class TodoListController extends Controller
     public function edit($id){
         $todolist = TodoList::where('id', $id)->get();
 
-        return view('todo.edit', compact('todolist'));
+        return view('todolist.edit', compact('todolist'));
     }
 
     public function update(Request $request, $id){
@@ -55,7 +60,7 @@ class TodoListController extends Controller
         $todolist-> $params['name'];
         $todolist->update();
 
-        return view('todo.index');
+        return view('todolist.index');
     }
 
     public function delete($id){
