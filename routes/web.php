@@ -27,3 +27,6 @@ Route::get('/upper/{value}', [UpperCaseController::class, 'index'])->name('upper
 Route::get('/todos/{id}/create', [TodoController::class, 'create'])->name('todos.create');
 
 Route::post('/todos/store', [TodoController::class, 'store'])->name('todos.store');
+
+
+Route::get('/usesession', [UpperCaseController::class, 'usesession'])->name('upper.usesession');
