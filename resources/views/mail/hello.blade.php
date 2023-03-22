@@ -8,5 +8,6 @@
 </head>
 <body>
     <h1>Hello TODOLIST TP</h1>
+    {{$todo->content}}
 </body>
 </html>

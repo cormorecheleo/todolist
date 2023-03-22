@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use App\Models\Todo;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -13,12 +14,13 @@ class HelloMail extends Mailable
 {
     use Queueable, SerializesModels;
 
+    public $todo;
     /**
      * Create a new message instance.
      */
-    public function __construct()
+    public function __construct(Todo $todo)
     {
-        //
+        $this->todo = $todo;
     }
 
     /**
