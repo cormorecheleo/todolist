@@ -2,6 +2,7 @@
 @section('content')
     
 <div>
+    <h5>{{$todolists->count()}} TodoList disponibles</h5>
     <table class="table">
 
         <thead>
@@ -15,6 +16,7 @@
                 <tr>
                     <td>{{$row->id}}</td>
                     <td>{{$row->name}}</td>
+                    <td><a href="{{route('todolist.show',['id'=>$row->id])}}" class="btn btn-primary">show</a></td>
                 </tr>
             @endforeach
         </tbody>

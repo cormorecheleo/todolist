@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\TodoController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TodoListController;
+use App\Http\Controllers\UpperCaseController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,5 +18,12 @@ use App\Http\Controllers\TodoListController;
 
 Route::get('/', [TodoListController::class, 'index'])->name('todolist.index');
 
+Route::get('/todolist/{id}', [TodoListController::class, 'show'])->name('todolist.show');
+
 Route::match(['GET', 'POST'], '/todos/create', ["uses" => "App\Http\Controllers\TodoListController@create"])->name('todolist.create');
 
+Route::get('/upper/{value}', [UpperCaseController::class, 'index'])->name('upper.indedx');
+
+Route::get('/todos/{id}/create', [TodoController::class, 'create'])->name('todos.create');
+
+Route::post('/todos/store', [TodoController::class, 'store'])->name('todos.store');
