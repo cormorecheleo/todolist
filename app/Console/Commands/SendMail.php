@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Jobs\SendMailJob;
 use App\Mail\HelloMail;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Mail;
@@ -27,6 +28,7 @@ class SendMail extends Command
      */
     public function handle(): void
     {
-        Mail::to("test@test.com")->send(new HelloMail());
+        SendMailJob::dispatch();
+        //Mail::to("test@test.com")->send(new HelloMail());
     }
 }

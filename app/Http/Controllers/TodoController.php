@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Events\TodoCreatedEvent;
 use App\Models\Todo;
 use App\Interfaces\TodoRepositoryInterface;
+use App\Jobs\SendMailJob;
 use App\Models\TodoList;
 use App\Services\TodoService;
 use Illuminate\Http\Request;
@@ -56,7 +57,8 @@ class TodoController extends Controller
         $this->todoService->save($todo);
 
         //TodoCreatedEvent::dispatch();
-        event(new TodoCreatedEvent($todo));
+        //event(new TodoCreatedEvent($todo));
+        SendMailJob::dispatch($todo);
 
         $redirect = "/todolist/".$params['id'];
         return redirect($redirect);
